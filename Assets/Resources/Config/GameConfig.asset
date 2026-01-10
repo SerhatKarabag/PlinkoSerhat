@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c84cdaa5b3573646a1ed9d09bc4485e, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Plinko.Data.GameConfig
+  _initialBallCount: 200
+  _sessionDurationMinutes: 15
+  _ballSpawnCooldown: 0.1
+  _maxSimultaneousBalls: 50
+  _ballsPerLevel: 40
+  _levels:
+  - _levelName: Level 1
+    _buckets:
+    - BaseReward: 160
+      Label: 16x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    - BaseReward: 90
+      Label: 9x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 20
+      Label: 2x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 12
+      Label: 1,2x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 11
+      Label: 1,1x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 10
+      Label: 1x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 5
+      Label: 0,5x
+      Color: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+    - BaseReward: 10
+      Label: 1x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 11
+      Label: 1,1x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 12
+      Label: 1,2x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 20
+      Label: 2x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 90
+      Label: 9x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 160
+      Label: 16x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    _rewardMultiplier: 1
+    _themeColor: {r: 0.4, g: 0.7, b: 1, a: 1}
+  - _levelName: Level 2
+    _buckets:
+    - BaseReward: 240
+      Label: 24x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    - BaseReward: 135
+      Label: 14x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 30
+      Label: 3x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 18
+      Label: 1,8x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 16
+      Label: 1,7x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 15
+      Label: 1,5x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 8
+      Label: 0,8x
+      Color: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+    - BaseReward: 15
+      Label: 1,5x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 16
+      Label: 1,7x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 18
+      Label: 1,8x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 30
+      Label: 3x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 135
+      Label: 14x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 240
+      Label: 24x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    _rewardMultiplier: 1
+    _themeColor: {r: 0.5, g: 0.8, b: 0.5, a: 1}
+  - _levelName: Level 3
+    _buckets:
+    - BaseReward: 320
+      Label: 32x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    - BaseReward: 180
+      Label: 18x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 40
+      Label: 4x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 24
+      Label: 2,4x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 22
+      Label: 2,2x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 20
+      Label: 2x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 10
+      Label: 1x
+      Color: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+    - BaseReward: 20
+      Label: 2x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 22
+      Label: 2,2x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 24
+      Label: 2,4x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 40
+      Label: 4x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 180
+      Label: 18x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 320
+      Label: 32x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    _rewardMultiplier: 1
+    _themeColor: {r: 1, g: 0.8, b: 0.3, a: 1}
+  - _levelName: Level 4
+    _buckets:
+    - BaseReward: 480
+      Label: 48x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    - BaseReward: 270
+      Label: 27x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 60
+      Label: 6x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 36
+      Label: 3,6x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 33
+      Label: 3,3x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 30
+      Label: 3x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 15
+      Label: 1,5x
+      Color: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+    - BaseReward: 30
+      Label: 3x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 33
+      Label: 3,3x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 36
+      Label: 3,6x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 60
+      Label: 6x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 270
+      Label: 27x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 480
+      Label: 48x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    _rewardMultiplier: 1
+    _themeColor: {r: 1, g: 0.5, b: 0.3, a: 1}
+  - _levelName: Level 5
+    _buckets:
+    - BaseReward: 800
+      Label: 80x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    - BaseReward: 450
+      Label: 45x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 100
+      Label: 10x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 60
+      Label: 6x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 55
+      Label: 5,5x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 50
+      Label: 5x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 25
+      Label: 2,5x
+      Color: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+    - BaseReward: 50
+      Label: 5x
+      Color: {r: 0.53333336, g: 0.76666665, b: 0.26666668, a: 1}
+    - BaseReward: 55
+      Label: 5,5x
+      Color: {r: 0.7666667, g: 0.73333335, b: 0.23333333, a: 1}
+    - BaseReward: 60
+      Label: 6x
+      Color: {r: 1, g: 0.7, b: 0.2, a: 1}
+    - BaseReward: 100
+      Label: 10x
+      Color: {r: 1, g: 0.5333333, b: 0.23333335, a: 1}
+    - BaseReward: 450
+      Label: 45x
+      Color: {r: 1, g: 0.36666667, b: 0.26666668, a: 1}
+    - BaseReward: 800
+      Label: 80x
+      Color: {r: 1, g: 0.2, b: 0.3, a: 1}
+    _rewardMultiplier: 1
+    _themeColor: {r: 1, g: 0.3, b: 0.5, a: 1}
+  _ballMass: 1
+  _ballBounciness: 0.25
+  _ballFriction: 0.6
+  _gravityScale: 1
+  _ballLinearDrag: 0.8
+  _ballAngularDrag: 0.8
+  _lateralDamping: 0.04
+  _maxHorizontalSpeed: 3
+  _maxVerticalSpeed: 6
+  _softBoundaryStrength: 0
+  _ballDespawnY: -10
+  _minServerLatencyMs: 50
+  _maxServerLatencyMs: 200
+  _serverErrorRate: 0.01
+  _rewardBatchSize: 10
+  _rewardBatchTimeoutSeconds: 3
+  _rewardBatchRetryInterval: 1
+  _rewardBatchMaxRetries: 3
+  _levelTransitionDuration: 1.5
+  _sessionTimerUpdateInterval: 0.25
+  _minSaveInterval: 2
+  _maxRewardHistoryEntries: 100
+  _implausibleRateThreshold: 0.1
