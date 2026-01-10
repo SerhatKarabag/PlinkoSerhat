@@ -9,10 +9,10 @@ namespace Plinko.Services
     // Manages session lifecycle, synchronization, and timer state.
     public class SessionManager : ISessionManager
     {
-        public event Action? OnSessionExpired;
-        public event Action<float>? OnTimerUpdated;
-        public event Action<SessionData>? OnSessionStarted;
-        public event Action<SessionData>? OnSessionResumed;
+        public event Action OnSessionExpired;
+        public event Action<float> OnTimerUpdated;
+        public event Action<SessionData> OnSessionStarted;
+        public event Action<SessionData> OnSessionResumed;
 
         private const string SESSION_START_KEY = "Plinko_SessionStartTime";
         private const string SESSION_ID_KEY = "Plinko_SessionId";

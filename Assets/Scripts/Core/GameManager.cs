@@ -35,7 +35,7 @@ namespace Plinko.Core
         private GameEventWiring _eventWiring;
         private FPSMonitor _fpsMonitor;
 
-        private string _gameSeed;
+        private string _gameSeed = string.Empty;
         private int _sessionIdCounter;
         private RunSummary _currentRunSummary;
         private bool _sessionTimerPaused;
@@ -295,7 +295,7 @@ namespace Plinko.Core
                 _playerData.PlayerId, _sessionIdCounter, _gameSeed, walletBalance
             );
 
-            if (isRestoredSession && _playerData.TryGetRunSummary(out var restoredSummary))
+            if (isRestoredSession && _playerData.TryGetRunSummary(out var restoredSummary) && restoredSummary != null)
             {
                 _currentRunSummary = restoredSummary;
             }

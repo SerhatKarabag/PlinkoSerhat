@@ -19,7 +19,7 @@ namespace Plinko.Physics
         [SerializeField] private int _maxPoolSize = 100;
 
         private GameObjectPool _ballPool;
-        private List<PlinkoBall> _activeBalls;
+        private List<PlinkoBall> _activeBalls = new List<PlinkoBall>();
         private GameConfig _config;
         private PlinkoBoard _board;
         private PhysicsSettings _physicsSettings;

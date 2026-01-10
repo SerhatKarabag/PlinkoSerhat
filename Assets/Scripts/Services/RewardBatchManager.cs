@@ -11,17 +11,17 @@ namespace Plinko.Services
     // Manages reward batch accumulation, verification, and retry throughout the game.
     public class RewardBatchManager : IRewardBatchManager
     {
-        public event Action<RewardBatch>? OnBatchCreated;
-        public event Action<RewardBatch, BatchValidationResponse>? OnBatchValidated;
-        public event Action<RewardBatch, string>? OnBatchFailed;
-        public event Action<long>? OnWalletUpdated;
-        public event Action<int, long>? OnEntriesRejected;
+        public event Action<RewardBatch> OnBatchCreated;
+        public event Action<RewardBatch, BatchValidationResponse> OnBatchValidated;
+        public event Action<RewardBatch, string> OnBatchFailed;
+        public event Action<long> OnWalletUpdated;
+        public event Action<int, long> OnEntriesRejected;
 
         private readonly IServerService _serverService;
         private readonly GameConfig _config;
         private readonly ILogger _logger;
 
-        private RewardBatch? _currentBatch;
+        private RewardBatch _currentBatch;
         private readonly Queue<RewardBatch> _pendingBatches;
         private readonly List<RewardBatch> _failedBatches;
         private readonly List<RewardBatch> _retryBuffer;
@@ -33,7 +33,7 @@ namespace Plinko.Services
 
         private float _batchTimer;
         private bool _isProcessingBatch;
-        private CancellationTokenSource? _cts;
+        private CancellationTokenSource _cts;
 
         public long OptimisticBalance { get; private set; }
         public long VerifiedBalance { get; private set; }
@@ -84,15 +84,8 @@ namespace Plinko.Services
 
         private void ResetCancellationToken()
         {
-            try
-            {
-                _cts?.Cancel();
-                _cts?.Dispose();
-            }
-            catch (ObjectDisposedException)
-            {
-                // Expected when CTS was already disposed
-            }
+            _cts.Cancel();
+            _cts.Dispose();
             _cts = new CancellationTokenSource();
         }
 
@@ -327,7 +320,6 @@ namespace Plinko.Services
             }
             catch (OperationCanceledException)
             {
-                // Task was cancelled (e.g., session ended) - queue for retry without incrementing retry count
                 batch.Status = RewardBatchStatus.Pending;
                 _failedBatches.Add(batch);
             }
@@ -391,16 +383,8 @@ namespace Plinko.Services
 
         public void Dispose()
         {
-            try
-            {
-                _cts?.Cancel();
-                _cts?.Dispose();
-            }
-            catch (ObjectDisposedException)
-            {
-                // Expected when CTS was already disposed - safe to ignore
-            }
-            _cts = null;
+            _cts.Cancel();
+            _cts.Dispose();
         }
     }
 }

@@ -66,16 +66,15 @@ namespace Plinko.Services.AntiCheat
             float spawnRightBoundary,
             int totalBuckets)
         {
-            // Normalize drop position to [0, 1]
             float spawnWidth = spawnRightBoundary - spawnLeftBoundary;
-            if (spawnWidth <= 0) spawnWidth = 1f; // Prevent division by zero
+            if (spawnWidth <= 0) spawnWidth = 1f;
 
             float normalizedDrop = Mathf.Clamp01((dropX - spawnLeftBoundary) / spawnWidth);
 
-            // Expected bucket center (linear mapping: left drop -> left buckets)
+            // Expected bucket center
             float expectedBucketCenter = normalizedDrop * (totalBuckets - 1);
 
-            // Allow wide variance - Plinko is chaotic
+            // Allow wide variance
             float allowedDeviation = totalBuckets * PlausibilityDeviationMultiplier;
 
             int minBucket = Mathf.Max(0, Mathf.FloorToInt(expectedBucketCenter - allowedDeviation));

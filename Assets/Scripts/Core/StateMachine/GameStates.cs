@@ -293,7 +293,7 @@ namespace Plinko.Core.StateMachine
 
         public event Action<string> OnErrorDisplayRequired;
 
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public ErrorState(GameManager gameManager, GameConfig config) : base(gameManager, config) { }
 

@@ -11,10 +11,10 @@ namespace Plinko.Services
 {
     public class MockServerService : IServerService
     {
-        public event Action<BatchValidationResponse>? OnBatchValidated;
-        public event Action<string>? OnServerError;
-        public event Action<SessionData>? OnSessionStarted;
-        public event Action<SessionData>? OnSessionSynced;
+        public event Action<BatchValidationResponse> OnBatchValidated;
+        public event Action<string> OnServerError;
+        public event Action<SessionData> OnSessionStarted;
+        public event Action<SessionData> OnSessionSynced;
 
         private const string SERVER_STATE_KEY = "MockServer_PlayerStates";
 
@@ -34,7 +34,7 @@ namespace Plinko.Services
             GameConfig config,
             IPreferences preferences,
             CoreLogger logger,
-            AntiCheatConfig? antiCheatConfig = null)
+            AntiCheatConfig antiCheatConfig = null)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
             _preferences = preferences ?? throw new ArgumentNullException(nameof(preferences));
@@ -420,11 +420,11 @@ namespace Plinko.Services
 
         private class ServerPlayerState
         {
-            public string PlayerId;
+            public string PlayerId = string.Empty;
             public long WalletBalance;
             public long TotalEarned;
-            public string CurrentSessionId;
-            public string CurrentGameSeed;
+            public string CurrentSessionId = string.Empty;
+            public string CurrentGameSeed = string.Empty;
             public DateTime SessionStartTime;
             public int SessionBallIndex;
             public HashSet<int> ValidatedBallIndices = new HashSet<int>();
@@ -449,11 +449,11 @@ namespace Plinko.Services
         [Serializable]
         private class SerializablePlayerState
         {
-            public string PlayerId;
+            public string PlayerId = string.Empty;
             public long WalletBalance;
             public long TotalEarned;
-            public string CurrentSessionId;
-            public string CurrentGameSeed;
+            public string CurrentSessionId = string.Empty;
+            public string CurrentGameSeed = string.Empty;
             public long SessionStartTimeTicks;
             public int SessionBallIndex;
 
@@ -491,9 +491,9 @@ namespace Plinko.Services
     [Serializable]
     public class SessionData
     {
-        public string SessionId;
-        public string PlayerId;
-        public string GameSeed;
+        public string SessionId = string.Empty;
+        public string PlayerId = string.Empty;
+        public string GameSeed = string.Empty;
         public DateTime StartTime;
         public DateTime ExpiryTime;
         public int InitialBallCount;
@@ -507,7 +507,7 @@ namespace Plinko.Services
         public bool Success;
         public long ServerBalance;
         public long TotalEarned;
-        public string ErrorMessage;
+        public string ErrorMessage = string.Empty;
     }
 
     public class ServerException : Exception

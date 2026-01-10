@@ -18,7 +18,7 @@ namespace Plinko.Services.AntiCheat
         public int ImplausibleOutcomes { get; private set; }
         public int SuspiciousFlags { get; private set; }
 
-        // Rolling window for recent activity (prevents long-term averages from masking bursts)
+        // Rolling window for recent activity (prevents longterm averages from masking bursts)
         private readonly Queue<BallOutcome> _recentOutcomes;
         private readonly int _windowSize;
 
@@ -113,7 +113,7 @@ namespace Plinko.Services.AntiCheat
             SuspiciousFlags++;
         }
 
-        // --- Statistical Getters ---
+       
 
         
         // Average reward per ball (all time in session).
@@ -121,7 +121,7 @@ namespace Plinko.Services.AntiCheat
             ? (double)TotalRewardsEarned / TotalBallsValidated
             : 0;
 
-        // High-value hit rate (all time in session).
+        // Highvalue hit rate (all time in session).
         public double HighValueHitRate => TotalBallsValidated > 0
             ? (double)HighValueHits / TotalBallsValidated
             : 0;
@@ -221,7 +221,7 @@ namespace Plinko.Services.AntiCheat
             };
         }
 
-        // --- Private Types ---
+      
 
         private struct BallOutcome
         {
@@ -238,8 +238,8 @@ namespace Plinko.Services.AntiCheat
     [Serializable]
     public class AntiCheatStatsSummary
     {
-        public string PlayerId;
-        public string SessionId;
+        public string PlayerId = string.Empty;
+        public string SessionId = string.Empty;
         public int TotalBalls;
         public long TotalRewards;
         public double AverageReward;

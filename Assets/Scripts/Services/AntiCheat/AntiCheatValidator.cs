@@ -15,7 +15,7 @@ namespace Plinko.Services.AntiCheat
         private float _spawnLeftBoundary;
         private float _spawnRightBoundary;
 
-        public AntiCheatValidator(AntiCheatConfig? config, GameConfig gameConfig, ILogger logger)
+        public AntiCheatValidator(AntiCheatConfig config, GameConfig gameConfig, ILogger logger)
         {
             _gameConfig = gameConfig ?? throw new ArgumentNullException(nameof(gameConfig));
             _config = config ?? AntiCheatConfig.Default;
@@ -48,9 +48,7 @@ namespace Plinko.Services.AntiCheat
             _playerStats.Remove(key);
         }
 
-        public EntryValidationResult ValidateEntry(
-            RewardEntry entry,
-            PlayerAntiCheatStats stats)
+        public EntryValidationResult ValidateEntry(RewardEntry entry, PlayerAntiCheatStats stats)
         {
             var result = new EntryValidationResult
             {
@@ -262,7 +260,7 @@ namespace Plinko.Services.AntiCheat
     {
         public bool IsPlausible;
         public bool IsHighValue;
-        public List<string> Flags;
+        public List<string> Flags = new List<string>();
         public (int min, int max) ExpectedBucketRange;
     }
 
@@ -272,14 +270,14 @@ namespace Plinko.Services.AntiCheat
         public bool InsufficientData;
         public int TotalFlags;
         public int FlagsUntilReject;
-        public List<string> Flags;
+        public List<string> Flags = new List<string>();
     }
 
     public class BatchAntiCheatResult
     {
-        public List<int> ImplausibleEntries;
-        public List<string> Flags;
-        public List<string> StatisticalFlags;
+        public List<int> ImplausibleEntries = new List<int>();
+        public List<string> Flags = new List<string>();
+        public List<string> StatisticalFlags = new List<string>();
         public bool IsSuspicious;
         public bool ShouldReject;
     }

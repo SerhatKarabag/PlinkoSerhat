@@ -13,7 +13,7 @@ namespace Plinko.Physics
 
         public int BucketIndex => _bucketIndex;
         public int BaseReward { get; private set; }
-        public string Label { get; private set; }
+        public string Label { get; private set; } = string.Empty;
 
         private BoxCollider2D _collider;
 

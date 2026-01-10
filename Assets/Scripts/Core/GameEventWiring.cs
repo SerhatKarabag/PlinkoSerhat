@@ -21,9 +21,8 @@ namespace Plinko.Core
         private readonly Func<Task> _startNewSessionInternal;
         private readonly ILogger _logger;
 
-        // These are set after construction via UpdateStateReferences
-        private PlayerData? _playerData;
-        private RunSummary? _currentRunSummary;
+        private PlayerData _playerData;
+        private RunSummary _currentRunSummary;
         private bool _disposed;
 
         public GameEventWiring(
@@ -208,6 +207,11 @@ namespace Plinko.Core
 
         private void HandleRunFinished(RunSummary summary)
         {
+            if (summary == null)
+            {
+                return;
+            }
+
             _uiManager.ShowRunEnd(summary);
             _playerData?.UpdateRunSummary(summary);
             _playerData?.MarkHistoryClearOnNextLaunch();

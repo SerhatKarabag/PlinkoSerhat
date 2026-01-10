@@ -15,7 +15,7 @@ namespace Plinko.Data
 
         [Header("Level Progression")]
         [SerializeField] private int _ballsPerLevel = 20;
-        [SerializeField] private LevelConfig[] _levels;
+        [SerializeField] private LevelConfig[] _levels = Array.Empty<LevelConfig>();
 
         [Header("Ball Physics - Basic")]
         [Tooltip("Mass of the ball (higher = more momentum)")]

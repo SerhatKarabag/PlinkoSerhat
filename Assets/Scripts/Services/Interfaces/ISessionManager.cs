@@ -7,10 +7,10 @@ namespace Plinko.Services
     // Handles session timing, persistence, and server synchronization
     public interface ISessionManager
     {
-        event Action? OnSessionExpired;
-        event Action<float>? OnTimerUpdated;
-        event Action<SessionData>? OnSessionStarted;
-        event Action<SessionData>? OnSessionResumed;
+        event Action OnSessionExpired;
+        event Action<float> OnTimerUpdated;
+        event Action<SessionData> OnSessionStarted;
+        event Action<SessionData> OnSessionResumed;
 
         float SessionDurationSeconds { get; }
         float RemainingSeconds { get; }

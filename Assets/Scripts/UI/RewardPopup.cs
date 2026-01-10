@@ -67,12 +67,10 @@ namespace Plinko.UI
             _timer += deltaTime;
             float t = _timer / _duration;
 
-            // Float upward
             Vector3 newPos = _startPosition;
             newPos.y += _floatSpeed * _timer;
             _rectTransform.position = newPos;
 
-            // Fade out
             if (_canvasGroup != null)
             {
                 _canvasGroup.alpha = _alphaCurve.Evaluate(t);

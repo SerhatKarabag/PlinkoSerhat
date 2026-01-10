@@ -44,7 +44,7 @@ namespace Plinko.UI
         private long _displayedPending;
         private int _displayedBallCount;
         private int _displayedLevel;
-        private string _displayedTimer;
+        private string _displayedTimer = string.Empty;
         private bool _walletDirty;
         private bool _ballCountDirty;
         private bool _levelDirty;

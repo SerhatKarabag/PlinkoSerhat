@@ -70,12 +70,12 @@ namespace Plinko.Data
     [Serializable]
     public class BatchValidationResponse
     {
-        public string BatchId;
+        public string BatchId = string.Empty;
         public bool IsValid;
         public bool IsRetryable;              // True for transient errors (timeout, network), false for conclusive rejection
         public long ServerCalculatedReward;
         public long NewWalletBalance;
-        public string ErrorMessage;
-        public List<int> InvalidEntryIndices; // Which entries failed validation
+        public string ErrorMessage = string.Empty;
+        public List<int> InvalidEntryIndices = new List<int>(); // Which entries failed validation
     }
 }

@@ -53,8 +53,8 @@ namespace Plinko.Physics
         [Range(0.5f, 1f)]
         [SerializeField] private float _bucketWidthScale = 0.85f;
 
-        private List<GameObject> _pegs;
-        private List<Bucket> _buckets;
+        private List<GameObject> _pegs = new List<GameObject>();
+        private List<Bucket> _buckets = new List<Bucket>();
         private GameConfig _config;
 
         private float _spawnAreaLeft;

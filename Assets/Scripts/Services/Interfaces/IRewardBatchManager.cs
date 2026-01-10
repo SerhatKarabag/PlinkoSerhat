@@ -7,11 +7,11 @@ namespace Plinko.Services
     // Interface for reward batching and validation management.
     public interface IRewardBatchManager
     {
-        event Action<RewardBatch>? OnBatchCreated;
-        event Action<RewardBatch, BatchValidationResponse>? OnBatchValidated;
-        event Action<RewardBatch, string>? OnBatchFailed;
-        event Action<long>? OnWalletUpdated;
-        event Action<int, long>? OnEntriesRejected;
+        event Action<RewardBatch> OnBatchCreated;
+        event Action<RewardBatch, BatchValidationResponse> OnBatchValidated;
+        event Action<RewardBatch, string> OnBatchFailed;
+        event Action<long> OnWalletUpdated;
+        event Action<int, long> OnEntriesRejected;
 
     
         long OptimisticBalance { get; }

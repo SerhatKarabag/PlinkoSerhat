@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Text;
 using Plinko.Core.Logging;
 using Plinko.Data;
@@ -101,7 +100,7 @@ namespace Plinko.Services.AntiCheat
             }
         }
 
-        // Log a single suspicious entry (for real-time monitoring).
+        // Log a single suspicious entry
         public void LogSuspiciousEntry(
             string playerId,
             RewardEntry entry,

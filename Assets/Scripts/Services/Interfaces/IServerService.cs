@@ -8,10 +8,10 @@ namespace Plinko.Services
     // Interface for server communication services.
     public interface IServerService
     {
-        event Action<BatchValidationResponse>? OnBatchValidated;
-        event Action<string>? OnServerError;
-        event Action<SessionData>? OnSessionStarted;
-        event Action<SessionData>? OnSessionSynced;
+        event Action<BatchValidationResponse> OnBatchValidated;
+        event Action<string> OnServerError;
+        event Action<SessionData> OnSessionStarted;
+        event Action<SessionData> OnSessionSynced;
 
         // Set spawn boundaries for anti-cheat plausibility checks.
         void SetSpawnBoundaries(float left, float right);
@@ -20,7 +20,7 @@ namespace Plinko.Services
         Task<SessionData> StartSessionAsync(string playerId, CancellationToken ct = default);
 
         // Sync session state with server.
-        // Client's locally stored wallet balance because there is no real serverfor this case study (restore after app restart)
+        // Client's locally stored wallet balance because there is no real server for this case study (restore after app restart)
         Task<SessionData> SyncSessionAsync(string playerId, string sessionId, long clientWalletBalance = 0, CancellationToken ct = default);
 
         // Validate a batch of rewards.
