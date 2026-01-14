@@ -1,61 +1,73 @@
-# Plinko Case Çalışması
+# Plinko
 
-Bu proje, Plinko’nun temel oyun akışını; servis simülasyonu, anti-cheat kontrolleri ve performans tarafıyla birlikte ele alan bir case çalışmasıdır. Hedefim, oyuncuya gerçek bir client-server sistemi varmış hissi veren; ileride yeni özellikler eklemeyi zorlaştırmayan ve akıcı çalışan bir yapı kurmaktır.
+This repository contains a Unity-based Plinko Game that focuses on a production-style game loop: simulated server communication, reward verification with anti-cheat checks, session persistence, and performance-minded runtime systems. The goal is to feel like a client-server game without requiring a real backend.
 
----
+## What’s Included
 
-## Mimariyi Neden Bu Şekilde Kurguladım?
+- **Full gameplay loop** driven by a state machine (`Initializing`, `Playing`, `LevelTransition`, `RunEnding`, `RunFinished`, `Paused`, `Error`).
+- **Mock backend** that simulates latency, error rates, wallet sync, and reward validation.
+- **Reward batching** with retries and optimistic UI updates.
+- **Anti-cheat validation** that flags implausible outcomes and abnormal statistics.
+- **Persistent player data** (wallet, run summary, reward history) using `PlayerPrefs`.
+- **Performance safeguards** including pooling, FPS monitoring, and physics quality scaling.
 
-### Akışı netleştirmek için state machine kullandım.
-Oyun `Initializing`, `Playing`, `LevelTransition`, `RunEnding`, `RunFinished`, `Paused`, `Error` gibi durumlara ayrıldı. Böylece her durumda hangi sistemlerin çalışacağı belli oldu; geçişler de kontrol edilebilir hale geldi (`GameStateMachine` ve state sınıfları).
+## Gameplay Flow (High Level)
 
-### Servisleri arayüzlerle ayırdım.
-Sunucu konuşması, oturum yönetimi, reward doğrulama gibi parçaları `IServerService`, `ISessionManager`, `IRewardBatchManager` gibi arayüzlere böldüm. Bu sayede gerçek backend’e geçmek ya da mock ile test etmek “tek bir implementasyon değişimi” seviyesine indi.
+1. `GameBootstrapper` creates services (mock server, session manager, reward batch manager) and injects them into `GameManager`.
+2. `GameManager` initializes the board and ball systems, then transitions through game states.
+3. Dropped balls are tracked by `BallManager` and scored by `PlinkoBoard`, which emits reward events.
+4. Rewards are queued by `RewardBatchManager` and validated by the mock server (including anti-cheat).
+5. UI updates are driven by events, with wallet totals split into verified vs. pending rewards.
 
-### Bağımlılıkları DI ile toparladım.
-`GameBootstrapper` üzerinden `MockServerService`, `SessionManager`, `RewardBatchManager` gibi servisleri kurup `GameManager.Initialize` ile enjekte ediyorum. Bu hem bağımlılıkları tek yerde toplayıp işleri temizliyor, hem de unit test yazmayı ciddi kolaylaştırıyor.
+## Architecture Overview
 
-### Konfigürasyonu ScriptableObject’e taşıdım.
-Kural seti, seviye parametreleri, fizik ayarları gibi şeyler `GameConfig` içinde ScriptableObject. Bu sayede dengeleme/iterasyon yaparken kodla boğuşmak gerekmiyor.
+### Core Orchestration
+- **`GameManager`** is the central controller: it owns the state machine, starts sessions, updates systems, and wires UI/physics/services together.
+- **`GameEventWiring`** subscribes to gameplay, session, and reward events to keep UI and data in sync.
 
-### UI ve sistemleri event ile bağladım.
-`GameEventWiring` ile UI, ball yönetimi, session ve batch süreçleri birbirine event üzerinden bağlı. Bu yaklaşım gereksiz sıkı bağımlılıkları azaltıyor, okunabilirlik ve bakım tarafında rahatlatıyor.
+### State Machine
+`GameStateMachine` registers the main states and drives transitions. This keeps session flow, level transitions, pause/resume, and run ending logic isolated and testable.
 
----
+### Services
+- **`MockServerService`** simulates a backend with latency and errors, validates reward batches, updates wallet totals, and persists mock server state to `PlayerPrefs`.
+- **`SessionManager`** owns session lifecycle and timer updates, and restores session state when possible.
+- **`RewardBatchManager`** accumulates rewards, sends batches, retries failed batches, and reconciles optimistic vs. verified balances.
 
-## Performans İçin Aldığım Önlemler
+### Anti-Cheat
+`AntiCheatValidator` analyzes reward entries for implausible trajectories, suspicious statistics, and rate limits. It can reject suspicious batches or flag them for review.
 
-- **Object pooling:**  
-  Toplar ve UI popup’lar pooling üzerinden gidiyor (`BallManager`, `GameObjectPool`, `UIManager`). Amaç: runtime GC spike’larını mümkün olduğunca azaltmak.
+### Data & Persistence
+- **`PlayerData`** stores player wallet, run summaries, and reward history, with throttled saves.
+- **`GameConfig` / `UIConfig`** are ScriptableObjects that drive rules, physics tuning, batching thresholds, and UI update cadence.
 
-- **FPS izleme + dinamik kalite:**  
-  `FPSMonitor` belirli eşiklerin altına düşüş yakalarsa `PhysicsOptimizer` üzerinden fizik kalitesini düşürüyor; oyun toparlayınca tekrar yükseltiyor.
+### Physics & Performance
+- **`PlinkoBoard`** generates the peg layout and buckets dynamically.
+- **`BallManager`** spawns and recycles balls with pooling.
+- **`FPSMonitor`** reduces physics quality when FPS drops and restores it on recovery.
+- **`PhysicsOptimizer`** centralizes physics tuning (iterations, fixed delta time, materials).
 
-- **Fizik optimizasyonu:**  
-  `PhysicsOptimizer.OptimizeForMobile()` ile iterasyon sayıları / `fixedDeltaTime` gibi ayarları mobil odaklı hale getirdim. Ball rigidbody’lerinde de gereksiz maliyet çıkaracak ayarlardan kaçındım.
+## Running the Project
 
-- **UI’ı her frame güncellememek:**  
-  UI sürekli update olmuyor; `UIConfig` içindeki `UpdateInterval` ile periyodik güncelleniyor. Böylece string/text güncellemeleri her frame çalışıp maliyet bindirmiyor.
+1. Open the project in Unity.
+2. Open `Assets/Scenes/MainScene.unity`.
+3. Press **Play**.
 
-- **Reward doğrulamayı batch yapmak:**  
-  Reward doğrulama istekleri tek tek değil, toplu (batch) gidiyor (`RewardBatchManager`). Bu hem olası network overhead’i simüle etmek için iyi, hem de akışı daha akıcı tutuyor.
+## Configuration
 
----
+Main configuration assets are under `Assets/Resources/Config/`:
 
-## Mock Servis Tarafında Nasıl Bir Mantık Kurdum?
+- **`GameConfig.asset`**: rules, levels, physics values, batching thresholds, anti-cheat thresholds, session length.
+- **`UIConfig.asset`**: UI update interval, pooling sizes, and string builder settings.
 
-Mock servis, “gerçek backend olsa nasıl davranırdı?” sorusunu mümkün olduğunca taklit edecek şekilde tasarlandı:
+## Folder Structure (Key Areas)
 
-- **Session yönetimi:**  
-  `StartSessionAsync` ve `SyncSessionAsync` ile oyuncu state’i tutuluyor. Session süreleri ve seed üretimi de backend mantığına benzer şekilde ele alındı.
+- `Assets/Scripts/Core` — game bootstrap, state machine, and event wiring.
+- `Assets/Scripts/Services` — mock server, session manager, reward batching, anti-cheat.
+- `Assets/Scripts/Physics` — board generation, ball behavior, buckets.
+- `Assets/Scripts/UI` — UI overlays, history, reward popups.
+- `Assets/Scripts/Data` — config ScriptableObjects and player data models.
+- `Assets/Scripts/Utils` — FPS monitor, physics optimizer, task helpers.
 
-- **Latency ve hata simülasyonu:**  
-  `GameConfig` üzerinden `MinServerLatencyMs`, `MaxServerLatencyMs`, `ServerErrorRate` değerleri var. Böylece gecikme + hata oranı üretip istemci tarafındaki retry/batch davranışlarını gerçekçi koşullarda deneyebiliyorum.
+## Notes
 
-- **Batch doğrulama + anti-cheat:**  
-  `ValidateBatchAsync` içinde reward entry’leri kontrol ediliyor (aynı ball index tekrar ediyor mu, bucket sınırları doğru mu vb.). Ayrıca `AntiCheatValidator` ile çok uç reward dağılımları, mantıksız bucket tercihleri, rate-limit gibi sinyalleri işaretliyorum.
-
-- **Mock state’in kalıcı olması:**  
-  Mock server state’i `PlayerPrefs` ile serialize edip saklıyorum. Böylece “oyunu kapat-aç” senaryosunda wallet ve session bilgisi (mock da olsa) kalıyor.
-
-Bu altyapı sayesinde `latency`, `hata`, `retry`, `anti-cheat` ve `persistence` gibi gerçek hayat senaryoları hızlıca test edebiliyorum.
+- `plinkoTest.apk` is included as a reference Android build artifact.
